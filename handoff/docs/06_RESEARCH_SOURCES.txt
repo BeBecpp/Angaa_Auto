@@ -1,0 +1,72 @@
+RESEARCH NOTES AND PRIMARY SOURCES
+Checked 2026-11-03, Asia/Ulaanbaatar. Public web research only; no direct workshop interviews, legal name clearance, registrar availability check or package installation was performed.
+
+1 Laravel 13 official release notes
+https://laravel.com/framework/docs/13.x/releases
+Verified: Laravel 13 exists; minimum PHP 8.3. Target PHP 8.4 is an implementation choice. Exact patch/package resolution must happen in the target repository.
+
+2 Filament 5 official installation
+https://filamentphp.com/docs/5.x/introduction/installation
+Verified: current v5 panel installation uses filament/filament ^5.0 and filament:install --panels; docs list PHP 8.2+, Laravel v11.28+, Tailwind v4.1+. The app must satisfy the stricter Laravel 13 PHP requirement. These docs do not replace Composer resolution against every optional dependency.
+
+3 Filament v5 announcement
+https://filamentphp.com/insights/danharrin-filament-v5-blueprint
+Verified: v5 integrates Livewire v4. Reason for explicitly rejecting copied old Filament 3/Livewire 3 recipes in the build brief.
+
+4 FullCalendar license
+https://fullcalendar.io/license
+Verified: standard/non-premium plugins are MIT; commercial Premium use requires the appropriate commercial license. Chosen design uses standard views plus resource filters. No Premium timeline/resource plugin is assumed free.
+
+5 FullCalendar timezone docs
+https://fullcalendar.io/docs/timeZone
+Reference for implementation of a calendar independent from the user's device timezone. Pin compatible actual packages; do not mix v6 code with v7 docs by accident.
+
+6 Laravel scheduler
+https://laravel.com/framework/docs/13.x/scheduling
+Verified: local schedule:work runs the scheduler in the foreground. Design uses a worker and scheduler process locally; server cron/worker later. A stopped laptop cannot deliver timed reminders.
+
+7 Laravel queues and private storage
+https://laravel.com/framework/docs/13.x/queues
+https://laravel.com/framework/docs/13.x/filesystem
+Implementation references for queued work, after-commit behavior, local/private filesystem abstractions and future storage adapters. Custom authorization/outbox rules remain application responsibilities.
+
+8 Browser photo capture reference
+https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/capture
+Verified: file input capture can hint camera selection, including environment, but has browser support differences; desktop commonly uses a file picker. Therefore camera capture needs gallery fallback, and physical-device QA. It is not a promise of identical iOS/Android camera behavior or HEIC conversion.
+
+9 Shopmonkey digital vehicle inspection (vendor primary source)
+https://www.shopmonkey.io/product/digital-vehicle-inspection
+https://support.shopmonkey.io/hc/en-us/articles/38743049848852-Perform-Inspections
+Observed product pattern: inspection/photo findings and historical records linked to customer and vehicle. We adopt the workflow concept, not the vendor's marketing outcome claims or interface design.
+
+10 AutoLeap scheduling (vendor primary source)
+https://autoleap.com/features/scheduling/
+Observed product pattern: calendar, booking and appointment reminders. No conversion/no-show improvement percentages from vendor marketing are used as our forecast.
+
+11 Automart repair booking (Mongolian service's own site)
+https://www.automart.mn/service
+Observed: date/time/service/car/contact request, with staff confirming the appointment. Supports the decision to distinguish requested time from confirmed capacity. This page does not establish that all Mongolian workshops follow the same process.
+
+12 Doctor Auto official site
+https://www.cardoctor.mn/
+Observed: an established automotive service brand presents services and business identity. Not used to infer its private operational software or market share. We do not copy its name or brand assets.
+
+13 Darkhan local directory (secondary source)
+https://dguide.mn/?listing_category=autofix
+https://dguide.mn/?listing=%D0%B0%D0%BD%D0%B4-%D0%B0%D0%B2%D1%82%D0%BE-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81
+https://dguide.mn/?listing=abc-auto-service
+https://dguide.mn/?listing=1111-auto-service-1111-%D0%B0%D0%B2%D1%82%D0%BE-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81
+Observed listing names include АНД, ABC, Alpha, Бэст and 1111. Directory presence does not independently verify current hours, quality, registration or continued operation. No competitor phone numbers/data are reused in the proposed product.
+
+14 Mobicom official developer platform
+https://developer.mobicom.mn/
+Observed: the platform describes telecom API integration including SMS/USSD. This is a candidate to investigate, not verified purchase terms, nationwide coverage, production credentials, exact SMS endpoint or delivery guarantee. Provider choice remains open; no contract/API endpoint is guessed in the implementation.
+
+15 Selected brand name
+The user selected АНГАА АВТО in this conversation. This revision creates a new brand identity for that exact name. No company/trademark clearance or domain registration availability check was performed. Proposed angaaauto.mn / angaa.mn names must be checked separately before adoption. Do not state that the brand name or domain is available.
+
+DECISIONS THAT ARE INFERENCES / DESIGN CHOICES
+The brand АНГАА АВТО, colors, slogans, MVP priorities, one-shop architecture, default reminder stages, local SQLite, MySQL 8.4 production target, exact schema and workflows are recommendations tailored to this brief. They are not facts established by the external sources. There is no surveyed evidence yet that customers will pay more or switch shops because of them.
+
+NOT YET VERIFIED
+Angaa's actual service catalog, skills, prices, legal name, business hours, address, team/bay count, mobile callout capability, warranty/retention policies, hosting specifications, SMS pricing and supported operators, chosen domain availability. All are settings/launch inputs, not invented demo facts.

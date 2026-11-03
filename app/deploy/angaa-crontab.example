@@ -1,0 +1,3 @@
+# crontab -u www-data -e
+# Laravel scheduler: heartbeats, reminders (every 5 min), OTP purge, orphaned upload cleanup.
+* * * * * cd /srv/angaa-auto/app && /usr/bin/php artisan schedule:run >> /dev/null 2>&1

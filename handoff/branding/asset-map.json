@@ -1,0 +1,71 @@
+{
+  "brand": "АНГАА АВТО",
+  "version": "2.0",
+  "assets": [
+    {
+      "sourcePath": "assets/brand/angaa-auto-logo-primary.png",
+      "publicPath": "brand/angaa-auto-logo-primary.png",
+      "bladeExpression": "asset('brand/angaa-auto-logo-primary.png')",
+      "role": "primary-logo",
+      "backgroundMode": "transparent",
+      "width": 2172,
+      "height": 724,
+      "alt": "АНГАА АВТО",
+      "recommendedMinDisplayWidthPx": 240,
+      "preserveAspectRatio": true
+    },
+    {
+      "sourcePath": "assets/brand/angaa-auto-logo-reversed-navy.png",
+      "publicPath": "brand/angaa-auto-logo-reversed-navy.png",
+      "bladeExpression": "asset('brand/angaa-auto-logo-reversed-navy.png')",
+      "role": "reversed-application",
+      "backgroundMode": "opaque-navy",
+      "width": 2172,
+      "height": 724,
+      "alt": "АНГАА АВТО",
+      "recommendedMinDisplayWidthPx": 240,
+      "preserveAspectRatio": true
+    },
+    {
+      "sourcePath": "assets/brand/angaa-auto-mark.png",
+      "publicPath": "brand/angaa-auto-mark.png",
+      "bladeExpression": "asset('brand/angaa-auto-mark.png')",
+      "role": "compact-mark",
+      "backgroundMode": "transparent",
+      "width": 1254,
+      "height": 1254,
+      "alt": "АНГАА АВТО",
+      "recommendedMinDisplayWidthPx": 44,
+      "preserveAspectRatio": true
+    },
+    {
+      "sourcePath": "assets/mascot/angaa-auto-mascot-success.png",
+      "publicPath": "brand/angaa-auto-mascot-success.png",
+      "bladeExpression": "asset('brand/angaa-auto-mascot-success.png')",
+      "role": "success-mascot",
+      "backgroundMode": "transparent",
+      "width": 1132,
+      "height": 1390,
+      "alt": "",
+      "recommendedMinDisplayWidthPx": 144,
+      "preserveAspectRatio": true
+    },
+    {
+      "sourcePath": "assets/mascot/angaa-auto-mascot-welcome.png",
+      "publicPath": "brand/angaa-auto-mascot-welcome.png",
+      "bladeExpression": "asset('brand/angaa-auto-mascot-welcome.png')",
+      "role": "welcome-mascot",
+      "backgroundMode": "transparent",
+      "width": 1132,
+      "height": 1390,
+      "alt": "",
+      "recommendedMinDisplayWidthPx": 160,
+      "preserveAspectRatio": true
+    }
+  ],
+  "referenceBoard": {
+    "path": "branding/ANGAA_AUTO_BRAND_BOARD.png",
+    "role": "reference-only-not-web-hero"
+  },
+  "canonicalLogo": "assets/brand/angaa-auto-logo-primary.png"
+}

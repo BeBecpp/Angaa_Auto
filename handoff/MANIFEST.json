@@ -1,0 +1,157 @@
+{
+  "brand": "АНГАА АВТО",
+  "version": "2.0",
+  "created": "2026-11-03",
+  "type": "branding-and-implementation-handoff-not-app-source",
+  "files": [
+    {
+      "path": "README_MN.txt",
+      "bytes": 7384,
+      "sha256": "76e3576ad316233d0e2fced2bad3e2d0b49d16b2934524590d1218ae2a3245d1"
+    },
+    {
+      "path": "START_CLAUDE.txt",
+      "bytes": 2557,
+      "sha256": "115df79edb86f4ef9c9b646a8cb51c6f4e84f456dea94b29bf5b84895264b064"
+    },
+    {
+      "path": "VALIDATION.txt",
+      "bytes": 1918,
+      "sha256": "3110a33ca202da6f86346a7b5db4cdc18d0cd6d03741c2727a3a654a19558969"
+    },
+    {
+      "path": "assets/brand/angaa-auto-logo-primary.png",
+      "bytes": 388796,
+      "sha256": "373be7c99f5dfdc8a1af691f59a5bad098c1b0f4710bc5fb724c547ee61adac1",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "alpha": true
+    },
+    {
+      "path": "assets/brand/angaa-auto-logo-reversed-navy.png",
+      "bytes": 1229505,
+      "sha256": "cb676f588f1567507a1183b597f68ffb1a50c72a32c0dbd2a770038546d477c4",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGB",
+      "alpha": false
+    },
+    {
+      "path": "assets/brand/angaa-auto-mark.png",
+      "bytes": 402247,
+      "sha256": "e42d30ef204b9109d7bc0de74ec9a9cdbbccf0c516e5c29a166d19e30dee698f",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alpha": true
+    },
+    {
+      "path": "assets/mascot/angaa-auto-mascot-success.png",
+      "bytes": 990235,
+      "sha256": "6a27e34cab32a4bd787a4cd879c7cde31b2464af6e463400ebc5cec545ac4c5c",
+      "width": 1132,
+      "height": 1390,
+      "mode": "RGBA",
+      "alpha": true
+    },
+    {
+      "path": "assets/mascot/angaa-auto-mascot-welcome.png",
+      "bytes": 1033253,
+      "sha256": "a238b47aebf94c4012635a1f583bf388c1e37b11f3f01e6c4ab999406eb0b6ec",
+      "width": 1132,
+      "height": 1390,
+      "mode": "RGBA",
+      "alpha": true
+    },
+    {
+      "path": "branding/ANGAA_AUTO_BRAND_BOARD.png",
+      "bytes": 1677219,
+      "sha256": "6c1e8ab5fda7ce1b80d6229d9c195edefe127b0c6a09b81ff6cdf0539a12c78a",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGB",
+      "alpha": false
+    },
+    {
+      "path": "branding/BRAND_GUIDE_MN.txt",
+      "bytes": 8953,
+      "sha256": "4583d0acd9b1c11333e2b4c5d0f6d30fd2c042b0cc66582a37c11e4d898bd10d"
+    },
+    {
+      "path": "branding/BRAND_PREVIEW.html",
+      "bytes": 10915,
+      "sha256": "4303853a47533cb0c5a24d17ed199532fa9475234e0fe7265bff9dd78f54d82f"
+    },
+    {
+      "path": "branding/GENERATION_PROMPTS.txt",
+      "bytes": 7661,
+      "sha256": "93dffb84324b07ef1301825197004637e04c38684bf9291d5cad86485ee4d0a7"
+    },
+    {
+      "path": "branding/asset-map.json",
+      "bytes": 2387,
+      "sha256": "ec97ff93519360956414cbb6d4e978a027003bec10f146a90ce770f8bb485e32"
+    },
+    {
+      "path": "branding/design-tokens.json",
+      "bytes": 3980,
+      "sha256": "2881ae2b934e1a0cbf1dd9825410c1763a2bce13ff759756695f48f549f08bf7"
+    },
+    {
+      "path": "branding/tokens.css",
+      "bytes": 1216,
+      "sha256": "842fae24752fdb40c40e537d95219f5ea329970376dc46b95cb28389af3391c3"
+    },
+    {
+      "path": "docs/01_CLAUDE_CODE_PROMPT.txt",
+      "bytes": 14437,
+      "sha256": "3385128dbe8acca2db0b1d975b3f9c37ef29e8f4429d31b6e419cfc2bca07b97"
+    },
+    {
+      "path": "docs/02_BUSINESS_AND_BRAND_MN.txt",
+      "bytes": 6821,
+      "sha256": "f6c2442dfd6e8eb479a33570d61101602d4d5eecdba44a30cbe731021ffaa870"
+    },
+    {
+      "path": "docs/03_PRODUCT_SPEC.txt",
+      "bytes": 15657,
+      "sha256": "b32685bee2ec8e84acc1ff4a271c6eb08564464cb0b6508bd788630dbb5a3472"
+    },
+    {
+      "path": "docs/04_ARCHITECTURE_AND_DATA.txt",
+      "bytes": 21614,
+      "sha256": "0b26f9fdbace71cf3d55e3fc773e8681f2b7e0c7a0eea571af5ee4f7b59068f3"
+    },
+    {
+      "path": "docs/05_ACCEPTANCE_AND_ROLLOUT.txt",
+      "bytes": 10252,
+      "sha256": "0af9a33b736d70a50a317ad909b9e547edbd647e2056fec29fdf1a875c1bbdd2"
+    },
+    {
+      "path": "docs/06_RESEARCH_SOURCES.txt",
+      "bytes": 5996,
+      "sha256": "22637eeb7bdc50be8864b16fb06d917d2445dc804e45148925656425e2f282e2"
+    },
+    {
+      "path": "docs/09_BUILD_AND_ASSET_HANDOFF_MN.txt",
+      "bytes": 7781,
+      "sha256": "bb59605b8c35da034aebb36ca2818783ee8df205487ae7cad6b40d2ac0b7ed3a"
+    },
+    {
+      "path": "scripts/install-brand-assets.ps1",
+      "bytes": 2026,
+      "sha256": "fd7bbeaa994cdff431fc1d8cac44255ec07deaf73cd69203e736694d9c54ab29"
+    },
+    {
+      "path": "scripts/install-brand-assets.sh",
+      "bytes": 1599,
+      "sha256": "d0d613181054ab4be240c8725bd2b9a467593b053aaa593f2ce787aef499ab9d"
+    },
+    {
+      "path": "scripts/verify_bundle.py",
+      "bytes": 1165,
+      "sha256": "e2b28e24431c636c2e0bec92f8d075854e6881e38f727e26cac24f0d35ac6f6b"
+    }
+  ]
+}

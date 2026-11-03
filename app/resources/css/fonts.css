@@ -1,0 +1,5 @@
+/* Self-hosted Noto Sans (Cyrillic incl. Өө Үү) for the admin panel; no external font CDN. */
+@import '@fontsource/noto-sans/400.css';
+@import '@fontsource/noto-sans/500.css';
+@import '@fontsource/noto-sans/600.css';
+@import '@fontsource/noto-sans/700.css';

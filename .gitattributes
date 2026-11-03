@@ -1,0 +1,2 @@
+# Keep the handoff kit byte-exact: handoff/MANIFEST.json verifies SHA-256 hashes.
+handoff/** -text

@@ -1,0 +1,154 @@
+{
+  "meta": {
+    "version": "2.0",
+    "status": "selected-name-generated-identity",
+    "date": "2026-11-03",
+    "locale": "mn",
+    "timezone": "Asia/Ulaanbaatar"
+  },
+  "brand": {
+    "name": "АНГАА АВТО",
+    "fullName": "АНГАА АВТО",
+    "latinName": "ANGAA AUTO",
+    "descriptor": "Авто сервис · Дархан",
+    "tagline": "Засвар бүр бүртгэлтэй.",
+    "hero": "Машиныхаа засварыг мэдэж яв.",
+    "primaryCta": "Засварын хүсэлт өгөх",
+    "portalCta": "Миний машины түүх",
+    "mascot": "Original brown bear mechanic: amber cap, teal overalls, off-white shirt; welcome and success poses"
+  },
+  "color": {
+    "ink": "#142632",
+    "primary": "#0B5A60",
+    "primaryHover": "#08464B",
+    "primarySoft": "#E7F1F0",
+    "canvas": "#F5F3EE",
+    "surface": "#FFFFFF",
+    "mutedText": "#58656C",
+    "border": "#D9DFDE",
+    "accent": "#E6AA42",
+    "accentText": "#142632",
+    "success": "#187047",
+    "successSoft": "#E8F4ED",
+    "danger": "#B42318",
+    "dangerSoft": "#FDEDEB",
+    "focus": "#0B5A60"
+  },
+  "typography": {
+    "fontFamily": "'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif",
+    "fontRequirement": "Cyrillic Ө ө Ү ү supported; self-host production fonts where used",
+    "sizesPx": {
+      "caption": 14,
+      "body": 16,
+      "lead": 20,
+      "h3": 24,
+      "h2": 36,
+      "h1Desktop": 56,
+      "h1Mobile": 34
+    },
+    "lineHeight": {
+      "heading": 1.15,
+      "body": 1.6
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "numbers": "tabular-nums"
+  },
+  "spacingPx": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64,
+    96
+  ],
+  "radiusPx": {
+    "input": 8,
+    "button": 8,
+    "card": 12,
+    "dialog": 16,
+    "badge": 6
+  },
+  "layout": {
+    "maxPublicWidthPx": 1200,
+    "mobileGutterPx": 20,
+    "desktopGutterPx": 40,
+    "breakpointsPx": {
+      "tablet": 768,
+      "desktop": 1280
+    },
+    "publicSectionGapPx": {
+      "mobile": 56,
+      "desktop": 88
+    }
+  },
+  "shadow": {
+    "card": "0 4px 16px rgba(20,38,50,0.04)",
+    "dialog": "0 20px 64px rgba(20,38,50,0.16)"
+  },
+  "components": {
+    "button": {
+      "minHeightPx": 48,
+      "horizontalPaddingPx": 20,
+      "focusRingPx": 3,
+      "primaryBackground": "primary",
+      "primaryText": "surface"
+    },
+    "input": {
+      "minHeightPx": 48,
+      "fontSizePx": 16,
+      "persistentLabel": true,
+      "errorPlacement": "below field with linked summary"
+    },
+    "card": {
+      "paddingPx": 24,
+      "background": "surface",
+      "borderWidthPx": 1
+    },
+    "badge": {
+      "fontSizePx": 14,
+      "requiresText": true,
+      "colorAloneConveysState": false
+    },
+    "calendar": {
+      "mobileDefault": "list",
+      "desktopDefault": "week",
+      "weekStartsOn": "monday",
+      "premiumPlugins": false
+    },
+    "mechanicControls": {
+      "minimumTargetPx": 48,
+      "primaryActionCountPerScreen": 1
+    },
+    "motion": {
+      "durationMs": 160,
+      "respectReducedMotion": true
+    },
+    "privateMedia": {
+      "publicDisk": false,
+      "marketingReuseRequiresSeparateApproval": true
+    }
+  },
+  "assets": {
+    "primaryLogo": "assets/brand/angaa-auto-logo-primary.png",
+    "reversedNavyLogo": "assets/brand/angaa-auto-logo-reversed-navy.png",
+    "mark": "assets/brand/angaa-auto-mark.png",
+    "mascotWelcome": "assets/mascot/angaa-auto-mascot-welcome.png",
+    "mascotSuccess": "assets/mascot/angaa-auto-mascot-success.png",
+    "brandBoard": "branding/ANGAA_AUTO_BRAND_BOARD.png"
+  },
+  "publicAssets": {
+    "primary-logo": "brand/angaa-auto-logo-primary.png",
+    "reversed-application": "brand/angaa-auto-logo-reversed-navy.png",
+    "compact-mark": "brand/angaa-auto-mark.png",
+    "success-mascot": "brand/angaa-auto-mascot-success.png",
+    "welcome-mascot": "brand/angaa-auto-mascot-welcome.png"
+  }
+}

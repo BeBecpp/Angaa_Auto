@@ -1,0 +1,78 @@
+АНГАА АВТО — CLAUDE CODE BUILD, LOCAL БА SERVER ЗААВАР
+
+1. АЖЛЫН ХАВТАС
+Шинэ work folder үүсгээд ZIP-ийн ANGAA_AUTO хавтсыг дотор нь handoff гэж нэрлэж тавина. Claude Code work folder дээрээс ажиллана. Laravel app/ гэсэн шинэ хоосон target-д үүснэ; handoff/ нь source specification/assets хэвээр хадгалагдана.
+
+Ubuntu/Xubuntu/Bash жишээ (download замыг өөрийнхөөрөө солино):
+mkdir -p ~/Projects/angaa-auto-work
+cp -R /path/to/ANGAA_AUTO ~/Projects/angaa-auto-work/handoff
+cd ~/Projects/angaa-auto-work
+claude
+
+PowerShell жишээ:
+New-Item -ItemType Directory -Path "$env:USERPROFILE\Projects\angaa-auto-work" -Force
+Copy-Item -LiteralPath "C:\path\ANGAA_AUTO" -Destination "$env:USERPROFILE\Projects\angaa-auto-work\handoff" -Recurse
+Set-Location "$env:USERPROFILE\Projects\angaa-auto-work"
+claude
+
+Эдгээр нь Claude Code CLI өмнө суусан нөхцөлд. Өөр орчинд энэ folder-ийг Open Folder-оор нээнэ. Existing project-той холихгүй, шинэ work folder сонго. ZIP root нь npm/composer application биш.
+
+2. CLAUDE-Д ӨГӨХ ДААЛГАВАР
+../START_CLAUDE.txt-ийн START MESSAGE-ийг өг. Claude PHP/extensions/Composer/Node/DB runtime-ийг шалгаж, docs/01_CLAUDE_CODE_PROMPT.txt-ийн бүх milestone-ийг хэрэгжүүлнэ. Laravel13/Filament5 major-ийг дуугүй downgrade хийхгүй. Missing утас/хаяг/SMS credentials нь тохиргоо ба DEMO горим болно; local build-ийг зогсоох шалтгаан биш.
+
+3. SCAFFOLD — CLAUDE ХИЙНЭ
+Work root дээр, app/ target өмнө байхгүй үед:
+composer create-project laravel/laravel app "^13.0"
+cd app
+composer require filament/filament:"^5.0"
+php artisan filament:install --panels
+Эдгээр нь scaffold; бүрэн application биш. Livewire4/Tailwind4.1+ ба бусад dependency-ийг actual Composer/npm resolution, official docs, lockfiles-оор батална. PowerShell constraint дамжуулах асуудал байвал Filament official Windows guidance хэрэглэнэ.
+app/ өмнө үүссэн бол дахин scaffold хийж дарж бичихгүй; code ба app/PROGRESS.md-ээс үргэлжлүүлнэ.
+
+4. BRAND ASSET СУУЛГАХ
+Work root-оос:
+bash handoff/scripts/install-brand-assets.sh app
+PowerShell:
+& .\handoff\scripts\install-brand-assets.ps1 -ProjectRoot .\app
+Script нь artisan ба composer.json байгаа бэлэн Laravel target шаарддаг; зурагнуудыг app/public/brand руу хуулна. Ижил нэртэй өөр агуулгатай файлд overwrite хийхгүй. Үүнийг application installer гэж андуурахгүй.
+Asset map: ../branding/asset-map.json. UI exact tokens: ../branding/design-tokens.json ба tokens.css. PNG brand board-ийг whole website background/hero болгохгүй; тусдаа asset ба semantic HTML хэрэглэнэ.
+
+Blade жишээ:
+<img src="{{ asset('brand/angaa-auto-logo-primary.png') }}" alt="АНГАА АВТО" class="h-auto w-60" />
+<img src="{{ asset('brand/angaa-auto-mascot-success.png') }}" alt="" class="h-auto w-44" />
+Маскот decorative бол alt хоосон; meaningful мэдээлэл HTML text-ээр байна. Aspect ratio/alpha-г хадгална; runtime-д ChatGPT image URL руу хамаарахгүй.
+
+5. ХӨГЖҮҮЛЭЛТИЙН ДАРААЛАЛ
+M0 runtime + scaffold + auth + brand tokens + local demo shell.
+M1 зурагтай guest request → inbox → verified customer/vehicle/history.
+M2 persisted calendar → bay/mechanic transactional reservation → intake.
+M3 diagnosis/photos → revisioned estimate → approval → repair → QC → delivery.
+M4 invoice/manual payment → maintenance plan → consent/outbox → simulated reminder → reports.
+M5 public/customer/mechanic pages, mobile/accessibility, print/export, security/runbook.
+Үе шат бүр 05_ACCEPTANCE_AND_ROLLOUT.txt-ийн бодит тесттэй. Нэг execution window хүрэхгүй бол PROGRESS.md-ээс үргэлжлүүлнэ; CRUD scaffold-ийг бүтэн release гэж нэрлэхгүй.
+
+6. LOCAL АЖИЛЛУУЛАХ — APPLICATION БЭЛЭН БОЛСНЫ ДАРАА
+app/ дотор composer/npm dependencies, .env, SQLite file, APP_KEY, migrations, guarded demo seed-ийг project README-ийн баталгаажсан алхмаар эхлээд тохируулна. Дараа тус тусдаа process:
+php artisan serve
+npm run dev
+php artisan queue:work --tries=3
+php artisan schedule:work
+Browser дээр бодитоор хэвлэгдсэн local URL-ийг нээнэ. Production-д artisan serve/Vite dev ашиглахгүй.
+Queue/scheduler эсвэл компьютер зогсвол timed reminder ажиллахгүй. SMS log driver нь simulated; бодитоор очсон гэж харагдуулахгүй. OTP local viewer нь local/testing ба тухайн challenge/session-д хязгаарлагдана; universal code байж болохгүй.
+app:demo-seed, app:owner-create, reminders:dispatch --dry-run, app:readiness нь Claude ХЭРЭГЖҮҮЛЭХ custom command; Laravel-д угаасаа байгаа гэж үзэхгүй.
+
+7. БҮТЭН DEMO-Г ХҮЛЭЭЖ АВАХ
+Photo request → Ангаа цаг батлах → механик intake/км/онош/зураг → estimate → customer approval → repair/QC → partial+final manual payment → delivery → private history → due date/km → dry-run reminder → rebook.
+Customer A нь B-ийн фото/estimate/history-г харахгүй. Хоёр staff нэг empty bay/mechanic slot-д зэрэг booking хийхэд нэг нь conflict болно. Device timezone солигдсон ч Дарханы цаг хэвээр. Opt-out/rebook/ownership change нь хуучин reminder-ийг зогсооно.
+
+8. SERVER ШИЛЖҮҮЛЭХ
+Staging дээр target PHP/MySQL/runtime-ээр test. MySQL schema migration; demo өгөгдлийг production руу оруулахгүй. Бодит pilot байвал SQLite→MySQL explicit data transfer, FK/ID/timestamp/row-count, private photo copy+checksum, APP_KEY/config backup, rehearsal.
+Web root app/public; compatible PHP-FPM; HTTPS; debug off; private customer files webroot-оос гадна; persistent queue worker; scheduler cron. chmod777, public DB credential, source-д hardcoded server IP/password хийхгүй.
+Бодит SMS provider сонгосны дараа current verified API contract-аар adapter хийнэ; кирилл segmentation, оператор бүрийн accepted/delivered state test. Provider accepted нь delivered биш. QPay/ebarimt нь дараагийн бодит integration; fake success endpoint үүсгэхгүй.
+DB+private photo encrypted off-server backup, staging restore drill, queue/scheduler heartbeat, readiness report. Server/cloud access болон actual deployment нь тусдаа authorized action; ZIP задлахад сайт автоматаар publish болохгүй.
+
+9. ХЭНД ЮУ ӨГӨХ ВЭ
+Claude Code: энэ handoff бүхэлдээ + START message.
+Дизайнер/хэвлэлийн газар: primary logo, mark, board, BRAND_GUIDE; signage/хатгамалд vector redraw ба production proof.
+Ангаа: local demo ба actual service/contact/hours/team settings батлах.
+DevOps: application repository ба deployment runbook; secret credentials-ийг тусдаа secure сувгаар өгнө. Энэ багцад secret байхгүй.

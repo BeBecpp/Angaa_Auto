@@ -1,0 +1,18 @@
+АНГАА АВТО — БАГЦЫН ШАЛГАЛТ
+2026-11-03
+
+Хийгдсэн:
+• Бодит PNG 6 файлыг нээж dimensions/mode/alpha шалгасан; үүссэн зургуудаас логоны нэр, тэмдэг, маскотын consistency-г харан үнэлсэн.
+• Primary logo, mark, welcome/success mascot: RGBA ба alpha 0–255. Reverse/navy болон board: opaque RGB.
+• Цагаан transparent хувилбарын ирмэгийн artifact-тай туршилтуудыг final asset-уудаас хассан. Багцад navy дэвсгэртэй цэвэр reversed application орсон.
+• Exact UI tokens JSON ба asset map parse; бүх source/local HTML file reference, HTML structure, UTF-8, old-brand residue шалгана.
+• Bash asset installer: syntax, шинэ fixture target, дахин ижил хуулалт, зөрүүтэй файл overwrite хийхээс татгалзах үйлдлийг бодитоор ажиллуулж шалгасан.
+• Manifest hashes, verify_bundle.py болон ZIP integrity-г package дуусгахдаа шалгасан.
+
+Хийгдээгүй / application build үед хийх:
+• Laravel application source, Composer package resolution, migrations, application/feature/browser tests. Энэ нь source app биш handoff багц.
+• PowerShell installer execution (энэ орчинд PowerShell runtime ашиглаагүй).
+• HTML preview-ийн browser-render QA (browser executable энэ орчинд бэлэн байгаагүй); structure ба local холбоосуудыг шалгасан.
+• Бодит утасны камер, OTP/SMS delivery, QPay/ebarimt, production server deploy, хэвлэлийн proof.
+
+Энэ файл нь багцын quality check-ийг тайлбарлана; систем live эсвэл application tests passed гэсэн баталгаа биш.

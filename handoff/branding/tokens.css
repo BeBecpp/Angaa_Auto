@@ -1,0 +1,26 @@
+/* АНГАА АВТО — exact UI tokens; generated PNG shading is not a CSS color source. */
+:root {
+  --angaa-ink: #142632;
+  --angaa-primary: #0B5A60;
+  --angaa-primary-hover: #08464B;
+  --angaa-primary-soft: #E7F1F0;
+  --angaa-canvas: #F5F3EE;
+  --angaa-surface: #FFFFFF;
+  --angaa-muted: #58656C;
+  --angaa-border: #D9DFDE;
+  --angaa-accent: #E6AA42;
+  --angaa-success: #187047;
+  --angaa-danger: #B42318;
+  --angaa-font: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --angaa-radius-input: 8px;
+  --angaa-radius-card: 12px;
+  --angaa-radius-dialog: 16px;
+  --angaa-shadow-card: 0 4px 16px rgb(20 38 50 / 4%);
+  --angaa-max-public-width: 1200px;
+}
+.angaa-logo { display: block; width: 260px; max-width: 100%; height: auto; object-fit: contain; }
+.angaa-mark { display: block; width: 52px; height: 52px; object-fit: contain; }
+.angaa-mascot { display: block; width: 240px; max-width: 100%; height: auto; object-fit: contain; }
+.angaa-money { font-variant-numeric: tabular-nums; }
+.angaa-focus:focus-visible { outline: 3px solid var(--angaa-primary); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .angaa-motion { transition: none !important; animation: none !important; } }

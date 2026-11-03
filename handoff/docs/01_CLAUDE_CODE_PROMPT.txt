@@ -1,0 +1,79 @@
+BUILD BRIEF — ANGAA AUTO / АНГАА АВТО
+Version 2 · 2026-11-03 · Darkhan, Mongolia · Owner/operator: Angaa
+
+ROLE AND AUTHORIZATION
+You are the lead Laravel engineer and product designer implementing this complete application. The workspace contains handoff/. Create the actual Laravel project in the empty ./app directory, preserve handoff/, and keep app/PROGRESS.md current. If explicitly working in an existing application repository instead, preserve its architecture and instructions rather than nesting another application blindly. Build working application code, not a proposal, static dashboard, CRUD-only scaffold, or UI demo. Proceed through all milestones. Routine reversible local implementation, migrations on your isolated dev/test databases, dependency installation, local tests and documentation are authorized. Preserve existing repository work and obey applicable repository instructions. Never run destructive operations against an existing database, overwrite unrelated work, deploy, buy domains, send real customer messages, or access a production server without appropriate task authorization. Missing business details should become configuration and clearly labeled local seed data; they must not stop local development.
+
+READ FIRST
+Read handoff/README_MN.txt; handoff/docs/02_BUSINESS_AND_BRAND_MN.txt, 03_PRODUCT_SPEC.txt, 04_ARCHITECTURE_AND_DATA.txt, 05_ACCEPTANCE_AND_ROLLOUT.txt, 06_RESEARCH_SOURCES.txt and 09_BUILD_AND_ASSET_HANDOFF_MN.txt; handoff/branding/BRAND_GUIDE_MN.txt, design-tokens.json, asset-map.json and tokens.css. Inspect the actual handoff/branding/ANGAA_AUTO_BRAND_BOARD.png and supplied logo/mark/mascot PNG files. These files form the implementation contract. Resolve ordinary choices yourself; document concrete technical blockers without silently removing requested behavior.
+
+PRODUCT
+A trustworthy, phone-first auto service business in Darkhan. The core loop:
+customer sends a request with optional photos → staff triages and confirms an appointment → vehicle check-in → diagnosis and photo inspection → versioned estimate approval → repair → QC → invoice/payment record → delivery → private repair history → next-service reminder → rebooking.
+This is one real workshop, not a marketplace or subscription SaaS. The selected visible brand is exactly АНГАА АВТО; descriptor Авто сервис · Дархан; proposed line Засвар бүр бүртгэлтэй. Keep the brand and all contact details editable centrally. Do not fabricate credentials, reviews, qualifications, business hours, turnaround promises, prices, customer counts or warranty claims.
+
+NON-NEGOTIABLE STACK
+• Laravel ^13, Filament ^5 panel builder. Consult CURRENT official docs and actual installed package source, not remembered Filament 3 APIs. Target PHP 8.4 (Laravel 13 minimum is 8.3); actual Composer resolution and tests decide compatibility. Do not silently downgrade the requested major versions.
+• Public/customer/mechanic UI: Blade + Livewire 4 where interactive + Alpine from the installed Livewire stack + Tailwind 4.1+ + Vite. No React/Next app or separate API server.
+• Default lightweight local runtime: SQLite + database queue + private filesystem + log message provider. Supply optional MySQL 8.4 Docker Compose profile and run MySQL integration tests when that runtime exists. Production database: MySQL 8.4 using utf8mb4. Do not require Docker just to see the local app.
+• FullCalendar Standard with day/week/month/list views, bundled locally and version-pinned. No unlicensed Premium resource timeline or assumptions about an old Filament calendar plugin working with v5. A custom Filament page can integrate the calendar. Resource filters (bay/mechanic) are enough for v1.
+• Use Laravel native policies, notifications, queues, scheduler, validation, transactions and filesystem abstractions. Avoid speculative dependencies. If adding an optional package, verify its current compatibility and license and record why it is needed.
+• Mongolian visible UI, Cyrillic-capable typography, MNT integer money, km, Monday week start. Store timestamps in UTC and render/schedule in Asia/Ulaanbaatar. Translate error, empty and loading states too.
+
+INITIAL ACTIONS
+Audit pwd, repository state and instructions; PHP/extensions/Composer/Node versions; available databases. Do not dump environment secrets. During the initial audit use a workspace PROGRESS_BOOTSTRAP.txt without pre-creating app/. Scaffold Laravel 13 into the empty app/ target first, then create app/PROGRESS.md listing milestones and blockers and migrate the bootstrap notes; in an existing project use isolated changes and preserve architecture. Commit lockfiles after package resolution. If runtime/network is unavailable, implement everything safely possible and mark unexecuted checks honestly. Do not replace the requested app with a static frontend because PHP is missing.
+
+DESIGN QUALITY
+Use the supplied design tokens. Quiet workshop precision: midnight navy #142632, dark teal #0B5A60, off-white #F5F3EE, restrained amber #E6AA42. Amber uses dark text. Light customer screens, calm dense admin, large thumb-friendly mechanic controls. Avoid racing flames, chrome, purple gradients, fake stock Lamborghini imagery and excessive animation. Use Cyrillic Noto Sans with a good system fallback; self-host production font if used. The original brand identity is ALREADY SUPPLIED: use the PNG primary logo, standalone A mark, navy-background reversed logo and two bear mascot poses from handoff/assets/. Do not generate a competing mark, substitute an icon library wrench, redraw the wordmark in a random font, or use the entire brand board as a website hero. Install assets into app/public/brand with the supplied scripts. Treat the primary image as the canonical mark geometry. The navy-background reversed asset is opaque; do not pretend it is transparent. Use the primary transparent asset on light surfaces and the compact mark on mobile. Mascot is limited to welcoming/helpful public sections and success/empty states; do not overload admin tables/calendar/finance with it. Any favicon/vector optimization must preserve the supplied identity and be inspected, not merely embed PNG inside SVG and claim vector artwork.
+
+Implement complete pages, not placeholder cards:
+• Public home, services/detail, request wizard, contact/directions, FAQ, privacy/terms drafts, result/receipt.
+• Customer phone OTP sign-in, own vehicles, own eligible repair history/photos, estimate approve/decline, appointments/cancellation request, reminders and consent preferences.
+• Filament: owner dashboard, new requests inbox, calendar, customers, vehicles, work orders, estimates, invoices/payments, maintenance/reminders, reports, services/team/bays/hours/settings/audit.
+• Mechanic mobile view: assigned jobs, check-in, diagnosis/photos, work checklist, QC handoff. Hide irrelevant accounting controls.
+Every link, filter, dialog and visible button must work or be explicitly unavailable with a clear reason. See 03_PRODUCT_SPEC.txt for detailed behavior and the seven-group navigation.
+
+CORRECTNESS AND TRUST
+1. A public request is pending, not a confirmed appointment. Staff confirmation creates/reserves resources transactionally. Include idempotency on submit and conversion.
+2. Booking conflicts are prevented on the server under concurrency, including mechanics and bays. Lock stable resource rows before checking overlaps. Validate opening hours, holidays, duration and buffers. Editing/dragging uses the same action and reverts on conflict.
+3. Vehicle plate and phone are identifiers for staff search, not authorization. No public history lookup by plate+phone. Verify phone ownership and authorize every customer record and media request. Never auto-attach an unverified public request to an existing customer vehicle.
+4. Estimate revisions are immutable once sent. Customer approval applies to exactly the displayed revision and amount, with audit evidence. New scope/cost needs new approval. Phone approvals must be recorded as staff-recorded phone approvals, not electronic signatures.
+5. Separate repair status, appointment status, invoice/payment state, and message delivery state. Completed/delivered is not synonymous with paid. Block unapproved repair work except controlled, reasoned owner override.
+6. Use private media, actual server image validation/decoding, random paths, bounded pixel count, EXIF orientation and stripping; secure expiring downloads. Keep pre/post photos and visibility flags. Do not publish customer repair photos as marketing without separate approval. HEIC conversion must be real and capability-checked; otherwise provide honest fallback guidance.
+7. Maintenance reminders are date OR measured-km based, per item and owner policy, never a universal invented schedule. Do not pretend to read mileage remotely. Use an outbox/idempotency design, consent checks, quiet hours, retries, timeout reconciliation and cancellation of stale scheduled messages. Log simulation is never delivery. Real provider adapters require verified contracts and credentials.
+8. Money uses integer MNT and server-calculated totals. Issued financial records and approved estimates retain snapshots. No fake payment gateway or ebarimt claim. Cash/bank/manual payment records work locally; QPay and ebarimt are later adapters only if requested.
+9. Audit sensitive actions; apply roles/policies server-side, CSRF, rate limits, safe exports and non-PII logs. Customer links must not leak access to another customer. Show the app's local demo banner only in local/testing environments.
+
+LOCAL EXPERIENCE AND DEMO
+Provide .env.example with nonsecret defaults, setup instructions for bash and PowerShell, migrations/factories, guarded local-only demo seeding and one owner bootstrap command using a prompted password. Demo customers/plates are unmistakably fictional; demo phone values are non-deliverable and SMS remains log-only. Provide a local OTP viewer only behind an explicit local/testing environment gate, bound to the current login challenge and session. Do not log OTP values in production or seed production accounts/passwords.
+
+Seed useful deterministic scenarios: pending photo request, tomorrow appointment, diagnosed job awaiting approval, active repair, waiting-parts job, completed/delivered job with photos and invoice, overdue reminder, declined estimate, cancelled appointment and consent opt-out. Seed small generated placeholder images marked DEMO, never borrowed private photos. No external API is required for these flows.
+
+Required local commands should include the framework commands plus documented app commands, for example:
+php artisan app:demo-seed
+php artisan app:owner-create
+php artisan reminders:dispatch --dry-run
+php artisan app:readiness
+Command names are project conventions you will implement, not existing framework guarantees.
+Document separate PHP web process, Vite, queue worker and scheduler processes, or provide a verified Composer dev script running all four with an installed compatible process runner. Reminders do not run when the machine/processes are stopped.
+
+MILESTONES (IMPLEMENT ALL IN ORDER)
+M0: environment/package audit, Laravel/Filament bootstrap, design tokens, auth skeleton, migration baseline, local demo shell.
+M1: public request + camera/gallery photos + admin inbox + customer/vehicle creation + secure own-history vertical slice.
+M2: actual calendar + bay/mechanic transactional reservation + appointment workflow + check-in.
+M3: diagnosis/inspection + revisioned estimates/approval + repair checklist/statuses + QC + delivery + history.
+M4: invoices/manual payments + per-service maintenance plans + reminder outbox/consent/local simulation + owner reporting.
+M5: full public brand pages, complete customer/mechanic views, mobile polish, accessibility, export/print templates, security checks and deployment/runbook.
+Use acceptance tests from 05_ACCEPTANCE_AND_ROLLOUT.txt at each milestone. Keep the code working as you progress. Do not defer all frontend work until the end or call the system complete after M0/M1.
+
+DELIVERABLES
+Complete repository with app source, real migrations, factories, seeders, Composer/npm locks, .env.example, .gitignore, setup scripts/docs, deployment example (web root /public, queue supervisor/systemd, scheduler cron), backup/restore notes, roles matrix, test evidence, BRAND.md, PROGRESS.md and release checklist. Do not include secrets, generated vendor/node_modules, customer data or a production APP_KEY in source control.
+Include a traceability table mapping each requested module to implemented paths and verified tests. Include screenshots from real rendered local pages if browser tooling exists; do not substitute mock screenshots for implementation proof. Run tests, formatting, build, route review, migrations on isolated SQLite and MySQL integration if available. Record skipped checks and exact blockers.
+
+END-TO-END COMPLETION DEMO
+Submit a photo request as a guest, review it as Angaa, confirm a time, check in a vehicle, add diagnosis and photos as a mechanic, create an estimate, sign in as that customer, approve the specific revision, perform and QC repair, issue invoice and record partial then final payment, deliver the vehicle, open the authorized history, set a service-specific next date/km, simulate the reminder without real SMS, and rebook. Verify another customer cannot see any of this data. Verify two staff cannot reserve the same bay/mechanic slot. Report completed paths and tests, not promises.
+
+BEGIN NOW with the repository/runtime audit and M0 implementation. Continue through all milestones; only stop for a concrete external blocker, an unsafe destructive action, or the end of the available execution window with a precise resumable progress record.
+
+BRAND ASSET ACCEPTANCE
+Primary brand text is exactly АНГАА АВТО everywhere. All supplied PNGs load from real local app/public/brand paths and retain aspect ratio/alpha. Missing image URLs, filename case mismatches, dark-logo-on-dark-background and mascot-as-a-fake-diagnostician are defects. Use exact design token values for UI; generated mockups are visual references, not real premises or credentials. Provide real Blade components using asset() and descriptive Mongolian alt text, with decorative mascot alt empty. No runtime dependency on ChatGPT image URLs.

@@ -1,0 +1,64 @@
+АНГАА АВТО — БРЭНДИЙН ХЭРЭГЛЭЭНИЙ ДҮРЭМ
+2026-11-03 · v2
+
+1 НЭР БА ДУУ ХООЛОЙ
+Үндсэн бичлэг: АНГАА АВТО. Латин бичлэг шаардлагатай үед ANGAA AUTO.
+Descriptor: Авто сервис · Дархан
+Уриа: Засвар бүр бүртгэлтэй.
+Гол headline: Машиныхаа засварыг мэдэж яв.
+Дэмжих өгүүлбэр: Зурагтай тэмдэглэл, ойлгомжтой үнийн санал, дараагийн үйлчилгээний сануулга — нэг дор.
+Брэндийн нэрийг «Ангаа Сервис», «Angaa Garage» гэх өөр хэлбэрээр хэрэглэгчийн зөвшөөрөлгүй сольж болохгүй. Навигаци, metadata, invoice, SMS template, browser title-д ижил нэр хэрэглэнэ.
+
+Хэл найруулга: ойлгомжтой, товч, хүний төлөө. «Та хүсэлтээ илгээлээ. Бид холбогдож цагийг баталгаажуулна.» гэж хэлнэ; цаг батлагдаагүй үед «Таны цаг баталгаажлаа» гэж бичихгүй. Үйлчилгээ дуусаагүй үед success маскотыг засвар дууссан гэсэн дохио болгож ашиглахгүй.
+
+2 ЛОГО БА ТЭМДЭГ
+Master: assets/brand/angaa-auto-logo-primary.png. Petrol teal wordmark ба А монограм, amber жижиг өргөлт. А тэмдэгт нь зам, сервисийн постын хэлбэрийг санагдуулах геометртэй.
+Compact: assets/brand/angaa-auto-mark.png. Avatar, favicon source, mobile header, ажлын хувцасны жижиг тэмдэгт.
+Reverse application: assets/brand/angaa-auto-logo-reversed-navy.png. Navy дэвсгэр ДАГУУЛСАН opaque PNG; transparency-тай гэж үзэхгүй. Дэвсгэргүй цагаан asset шаардлагатай бол primary silhouette-ээс шалгасан vector export хийж гаргана. Багцын primary болон mark нь жинхэнэ alpha channel-тай.
+Primary asset нь source of truth; brand board-ийн mockup дээрх харагдах жижиг ялгааг кодонд дахин зурж хуулбарлахгүй.
+
+Web practical size: primary logo desktop header 240–300 CSS px өргөн, automatic height; mobile-д mark 44–56px canvas эсвэл wordmark-ийг хангалттай өргөнөөр харуулна. PNG canvas-ийн зайг сунгаж шахахгүй. Марк favicon болж маш жижигрэхэд detail алдагдаж болох тул бодит browser дээр 16/32px proof хийнэ; нийтлэг circle/wrench icon-оор дур мэдэн орлуулахгүй.
+Логоны үзэгдэх хэлбэрийн эргэн тойронд дор хаяж нэг crossbar-ийн өндөртэй зай үлдээнэ. Зураг/өнгө дээр ялгарахгүй бол цайвар clean surface ашиглана. Assets-ийн aspect ratio-г хадгална; crop, skew, bevel, glow, shadow, outline, stretching, дүрсний өнгө санамсаргүй өөрчлөхгүй.
+Монограмыг үндсэн нэрийн оронд самбарт ганцааранг нь анх танилцуулахгүй; АНГАА АВТО wordmark хамт харагдана.
+
+3 ӨНГӨ
+Midnight #142632 — үндсэн текст, footer, signage.
+Petrol teal #0B5A60 — primary CTA, link, active state.
+Amber #E6AA42 — accent, cap/pocket detail, pending states; дээр нь midnight текст.
+Warm white #F5F3EE — public canvas.
+White #FFFFFF — cards, forms.
+Muted #58656C, border #D9DFDE — туслах мэдээлэл, хил.
+Success #187047, danger #B42318 — функциональ төлөв. Өнгөнөөс гадна текст/icon заавал байна.
+Маскотын бор үс нь illustration-ийн өнгө; бүх UI-д шинэ brand accent болгож нэмэхгүй.
+PNG нь бага зэрэг raster shading-тай байж болно; UI-ийн exact өнгө branding/design-tokens.json болон tokens.css-д authoritative байна. Палитрын hex-ийг screenshot-оос sample хийхгүй.
+
+4 TYPOGRAPHY
+UI: Noto Sans, Cyrillic Өө Үү-г бүрэн дэмжсэн файлууд; system fallback. Font binary энэ ZIP-д ороогүй. Хэрэгжүүлэх үед лицензтэй албан эхээс self-host хийж, networkгүй fallback шалгана.
+Логоны үсэг нь PNG artwork; дурын font-оор дахин бичээд primary logo гэж солихгүй.
+Public body 16px, туслах 14px+, heading responsive 34–56px; body line-height 1.6. Табличный мөнгө/км/дугаар tabular numerals. Mobile input 16px+, touch target 44px+; mechanic primary 48px+.
+
+5 МАСКОТ
+Original brown bear mechanic: amber малгай, petrol teal комбинзон, off-white цамц, navy outline, даруухан инээмсэглэл. Бодит Ангаагийн хөрөг биш, брэндийн зурмал туслах дүр.
+Welcome pose: assets/mascot/angaa-auto-mascot-welcome.png — landing intro, хэрхэн ажилладаг, туслах тайлбар, сошиал welcome.
+Success pose: assets/mascot/angaa-auto-mascot-success.png — хүсэлт амжилттай ХАДГАЛАГДСАН page, account onboarding, үйлчилгээний summary, checklist guide.
+Success pose-ийн check нь тухайн үйлдлийн үр дүнг илэрхийлнэ; pending booking-ийг confirmed гэж ойлгуулах текст бүү тавь.
+Нэг дэлгэцэд нэг маскот; public hero-д хэт давамгайлуулахгүй. Form CTA ба мэдээллийн шатлалыг булаахгүй. Invoice, төлбөрийн дүн, calendar event, админ data table дотор том маскот хэрэглэхгүй.
+Дүрийн нүүр/малгай/хувцас/өнгө/пропорцыг өөрчлөхгүй, stock bear эсвэл өөр cartoon-оор солихгүй. Шинэ байрлалд supplied mascot-ийг identity reference болгон ашиглана. Автомашины эвдрэл эсвэл хэрэглэгчийн асуудлаар шоглохгүй. AI онош тавьж байгаа мэт амлуулахгүй.
+Decorative mascot alt=""; утгатай мэдээлэл дамжуулж байгаа үед Монгол alt text, гэхдээ үр дүнгийн тайлбар нь image дотор биш HTML text байна.
+
+6 APPLICATIONS
+Самбар: primary mark + АНГАА АВТО; descriptor жижиг; бодит утас/цаг батлагдсаны дараа нэмнэ.
+Ажлын хувцас: цээжин дээр compact mark/wordmark, том mascot нь optional merchandise эсвэл poster дээр. Logo гол таних тэмдэг хэвээр.
+Үйлчилгээний карт/наалт: нэр, work order reference, огноо, км, дараагийн зөвлөмж; утас/QR бодитоор тохирсон үед.
+Social: original logo эсвэл mark avatar; mascot cover/post дээр; хувийн дугаар, хүний царайтай засварын зурагт тусдаа зөвшөөрөл.
+Print invoice: цайвар дэвсгэртэй logo, уншигдах хүснэгт, тодорхой дүн; рекламын poster шиг чимэхгүй.
+
+7 UI SYSTEM
+radius: inputs/buttons 8px, cards 12px, dialogs 16px. 4/8/12/16/24/32/48/64/96px spacing.
+Max public width 1200px, mobile gutter20px, desktop40px. Календарь mobile-д list; admin tables хэрэгтэй мэдээллээ card хэлбэрт буулгана.
+Components: brand-logo, status badge, price label, service card, photo uploader, request stepper, estimate approval panel, history timeline, next-service card, reminder preference, empty/error/loading states.
+No random gradients, neon glow, racing flames, fake speedometers, fake testimonials, supercar stock hero, animated mascot covering form controls.
+
+8 ФАЙЛ БА ҮНЭН ЗӨВ ТАЙЛБАР
+6 selected PNG final asset бий. Бүх generation prompt branding/GENERATION_PROMPTS.txt-д хадгалсан. Багцад raster PNG-ээс гаргасан хуурамч vector source оруулаагүй. Том signage/хатгамлын ажилд master логоны геометрийг хадгалсан vector redraw ба printer proof шаардлагатай.
+Brand board-ийн facade, jacket, service card нь хэрэглээний mockup. Бодит сервисийн зураг, бодит байрлал, батлагдсан бүтээгдэхүүн гэж нийтлэхгүй.

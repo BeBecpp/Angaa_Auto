@@ -1,0 +1,148 @@
+@import '@fontsource/noto-sans/400.css';
+@import '@fontsource/noto-sans/500.css';
+@import '@fontsource/noto-sans/600.css';
+@import '@fontsource/noto-sans/700.css';
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../../app/**/*.php';
+
+/* АНГАА АВТО exact UI tokens (handoff/branding/design-tokens.json). PNG shading is never a color source. */
+@theme {
+    --font-sans: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --color-ink: #142632;
+    --color-primary: #0b5a60;
+    --color-primary-hover: #08464b;
+    --color-primary-soft: #e7f1f0;
+    --color-canvas: #f5f3ee;
+    --color-surface: #ffffff;
+    --color-muted: #58656c;
+    --color-line: #d9dfde;
+    --color-accent: #e6aa42;
+    --color-success: #187047;
+    --color-success-soft: #e8f4ed;
+    --color-danger: #b42318;
+    --color-danger-soft: #fdedeb;
+
+    --radius-input: 8px;
+    --radius-card: 12px;
+    --radius-dialog: 16px;
+    --radius-badge: 6px;
+
+    --shadow-card: 0 4px 16px rgb(20 38 50 / 4%);
+    --shadow-dialog: 0 20px 64px rgb(20 38 50 / 16%);
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-canvas font-sans text-base text-ink antialiased;
+        line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3 {
+        line-height: 1.15;
+        @apply font-bold text-ink;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-primary);
+        outline-offset: 3px;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@utility btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-[8px] px-5 font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@utility btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-hover;
+}
+
+@utility btn-secondary {
+    @apply btn border border-line bg-surface text-ink hover:border-primary hover:text-primary;
+}
+
+@utility btn-accent {
+    @apply btn bg-accent text-ink hover:brightness-95;
+}
+
+@utility btn-danger {
+    @apply btn bg-danger text-white hover:brightness-95;
+}
+
+@layer components {
+    .container-public {
+        @apply mx-auto w-full max-w-[1200px] px-5 lg:px-10;
+    }
+
+    .card {
+        @apply rounded-[12px] border border-line bg-surface p-6 shadow-card;
+    }
+
+    .field-label {
+        @apply mb-1 block text-sm font-semibold text-ink;
+    }
+
+    .field-input {
+        @apply block min-h-12 w-full rounded-[8px] border border-line bg-surface px-3 py-2 text-base text-ink placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-3 focus:ring-primary/25;
+    }
+
+    .field-error {
+        @apply mt-1 text-sm font-medium text-danger;
+    }
+
+    .field-hint {
+        @apply mt-1 text-sm text-muted;
+    }
+
+    .badge {
+        @apply inline-flex items-center gap-1 rounded-[6px] px-2 py-0.5 text-sm font-semibold;
+    }
+
+    .money {
+        font-variant-numeric: tabular-nums;
+    }
+
+    .demo-banner {
+        @apply bg-accent text-center text-sm font-semibold text-ink;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+    }
+}

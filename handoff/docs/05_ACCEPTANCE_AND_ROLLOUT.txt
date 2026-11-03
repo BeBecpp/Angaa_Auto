@@ -1,0 +1,81 @@
+IMPLEMENTATION MILESTONES AND ACCEPTANCE CONTRACT
+This is the required test plan, not evidence of executed application tests.
+
+M0 — BOOTSTRAP AND RUNTIME
+Deliver Laravel 13 + Filament 5 actual install, current API usage, committed locks, environment example, private disks, Mongolian locale and brand tokens. An owner bootstrap command prompts for a password. Local demo is guarded; no production seed password.
+Pass: app and /admin render; customer cannot enter staff panel; npm production build completes; clean isolated migrations/seed run; package/platform requirements recorded; actual versions in PROGRESS.md. If PHP/Composer unavailable, mark as blocked, do not claim runnable app.
+
+M1 — REQUEST → STAFF → PRIVATE HISTORY
+Deliver working public request wizard, camera/gallery controls, request photos, inbox, conversion action, customers/vehicles and verified customer access skeleton.
+Pass: guest submits optional-photo request without registration; double-submit returns one request; invalid file/image size fails clearly without dropping form text; staged upload cannot be stolen via another session; staff sees request and can process it; guest receipt cannot access existing history; customer A cannot view/export/download B's order/photo by changing IDs or signed URLs. Unverified plate/phone never grants access or automatic ownership.
+
+M2 — CALENDAR AND ARRIVAL
+Deliver real persisted FullCalendar standard views with Mongolian labels, resource filters, working create/edit/reschedule/cancel and check-in.
+Pass: hours/closures enforced; [10:00,11:00) and [11:00,12:00) allowed when buffers permit; overlapping bay OR mechanic denied; cancellation releases reservation; drag conflict reverts and accessible modal gives same behavior. Two independent concurrent DB connections confirming same empty slot produce one reservation success and one conflict, not two successes. Run this on MySQL target, not only SQLite. Phone timezone changed to UTC/Tokyo still shows 10:00 Mongolia slot as 10:00 Mongolia. Overrun prevents a new check-in to occupied bay and raises collision alert. Stale edit version rejected.
+
+M3 — ESTIMATE → REPAIR → QC → DELIVERY
+Deliver intake snapshots, inspection/photo publication, versioned estimates, real customer decisions, enforced statuses, repair tasks/parts, QC, ready/pickup and immutable history.
+Pass: unapproved work cannot start except audited owner override; old estimate tab cannot approve superseded revision; double-click cannot create duplicate decision; customer sees exact revision and amount; an increased/additional scope creates a new revision requiring approval; phone consent identifies staff record/method; unauthorized mechanic cannot alter prices or publish financial records; delivered order snapshot cannot silently mutate. New owner of same vehicle cannot see previous customer's history; former owner cannot see later jobs/contact information.
+
+M4 — FINANCE, SERVICE PLANS AND REMINDERS
+Deliver invoice issuance, partial/full manual payments and reversals, maintenance plans, consent/preferences, outbox/local simulation, operational reports.
+Pass: integer arithmetic with fractional quantities and documented rounding; posted total ignored; issued invoice preserved; partial payment gives correct balance; duplicate reference/idempotency does not double count; reversal correct and audited; total reversed <= settled payment. Cash received and billed revenue remain distinct.
+Clock-controlled reminder cases:
+• Date-only due, km-only due, both OR; unknown mileage does not invent trigger.
+• Stale older mileage cannot mark a new plan due; decreasing km needs correction workflow.
+• Re-running evaluation creates one stage message, not duplicates.
+• Two workers cannot claim one outbox entry simultaneously.
+• Consent revoked before dispatch skips the queued message.
+• Changed phone/ownership/rebooked appointment invalidates old recipient/version.
+• Quiet-hours shift preserves business timezone and skips no-longer-useful reminder.
+• Confirming a booking inside 24h skips past reminder stage; never sends both stale stages at once.
+• Simulated driver stays simulated; provider acceptance stays accepted, not delivered.
+• Timeout after send produces unknown/reconciliation, no blind duplicate retry.
+• Failed known-not-sent delivery backs off; stale/satisfied plan cancels future reminders.
+• No real SMS transport or production credentials are used by tests.
+
+M5 — COMPLETE PRODUCT AND RELEASE PREPARATION
+Deliver all specified public/customer/mechanic/staff screens, print templates, branded components, real empty/error/loading states, reports/exports, setup and deployment/runbooks, verified full demo.
+Pass: all visible CTAs and menu items work; no generic placeholder pages posing as modules; at 360/390/768/1440 widths forms/tables/calendar usable; keyboard navigation/focus/errors/dialogs work; 200% zoom/reduced-motion; genuine rendered screenshots if runtime supports them; private routes noindex; requests/media/exports do not leak data; CSV formula injection neutralized; production build and tests pass. No fabricated business details become public defaults.
+
+REQUIRED TEST TYPES
+Domain/feature tests for status/approval, request idempotency, totals, resource scheduling, OTP authorization, media privacy and reminder lifecycle; tests must exercise externally observable behavior, not merely assert implementation methods exist. Use isolated databases. Feature policy tests for owner/advisor/mechanic/customer. MySQL integration for locking/concurrency; conditional skip with clear blocker when unavailable. Browser smoke for full loop when a browser runner is available; physical iPhone/Android camera/HEIC test is a separate manual pilot check and cannot be claimed from desktop simulation.
+Do not add dozens of trivial CSS or accessor tests. Do not use seed data or hardcoded screenshots as proof of backend behavior. Tests must survive implementation refactors.
+
+ONE COMPLETE DEMO SCRIPT
+1 Guest opens /, selects service/unknown problem, describes symptom, chooses gallery/camera photo and submits preferred time.
+2 Owner logs into /admin, triages request and identifies customer/vehicle safely, confirms available bay/mechanic time.
+3 Customer sees confirmed appointment through verified account. Another account cannot see it.
+4 Mechanic checks in car, records km and condition photos, diagnoses and publishes permitted findings through advisor workflow.
+5 Advisor sends estimate revision 1. Customer approves it in portal. Mechanic begins allowed work.
+6 Additional work creates revision 2; revision 1 approval does not cover added scope. Customer approves or declines new work.
+7 Mechanic records work and after photo; permitted staff perform QC; order ready.
+8 Issue invoice; record partial then final manual payment, verify balance; deliver and print summary.
+9 Customer opens own photo history. Staff creates appropriate due date/km plan and records reminder consent.
+10 Advance test clock, run reminder dry-run/log driver, inspect simulated outbox result, rebook. Nothing is actually sent.
+11 Verify cancelled appointment/reminder, opt-out, ownership change, concurrent slot conflict and restore of sample DB+photo backup.
+
+LOCAL RUNBOOK REQUIREMENTS
+README includes actual verified commands for the installed framework and scripts. Typical separate processes after setup:
+php artisan serve
+npm run dev
+php artisan queue:work --tries=3
+php artisan schedule:work
+Do not assume these commands provision DB or install dependencies. Provide one-time composer install/npm install, .env copy, key generation, migration and guarded demo seeding steps. Explain SQLite file creation and optional MySQL profile. PowerShell alternatives must use actual PowerShell syntax; do not paste Bash cp/export unmodified as Windows instructions.
+Production runs npm run build, not Vite dev server; persistent queue worker and cron, not foreground artisan serve. File upload and scheduler fail states must be visible to owner.
+
+READINESS CHECK (IMPLEMENT app:readiness)
+Report pass/warn/fail with actionable reasons: correct APP_ENV/debug/key; HTTPS URL; no local-only demo bypass; staff account configured; business name/phone/address/hours/services approved; private disk writable and not publicly linked; image conversion capabilities; DB connected; migrations current; queue and scheduler recent heartbeat; real SMS capability/credentials when enabled; reminder consent rules; backup destination and latest restore test; media/body limits; production assets built. Never print secrets.
+SMS disabled is a clearly visible capability state, not a fake success. For production customer OTP, a real delivery channel must work before public portal sign-in is promoted; otherwise allow staff-only mode and clearly unavailable portal access, without fallback universal OTP. Local demo remains fully testable via gated simulation.
+
+SERVER ROLLOUT
+• Rehearse on staging using target PHP/MySQL, domain/cookies and private files.
+• Fresh production database if there is no real pilot data; keep demo out. If pilot data exists, backup and rehearse explicit data+photo migration with counts/hashes.
+• Configure real business details/provider. Test OTP and normal Cyrillic reminder across intended operators with owner-approved test numbers; measure actual acceptance/delivery/segments.
+• Backup DB plus private photos, preserve keys/config safely, restore to staging and open restored history photos.
+• Enable persistent worker, cron, HTTPS, least-privilege permissions and monitoring. Verify full request-to-history flow on real handset.
+• Pilot with a small owner-selected set of customers; fix actual issues before public promotion. No fixed launch timeline can be credible until runtime, data and workshop practices are known.
+
+PROGRESS.md FORMAT
+Milestone | state(todo/doing/blocked/verified) | implementation paths | executed tests/evidence | blockers.
+At every handoff write next exact actions, actual dependency versions, migrations added, commands executed/outcomes and remaining business details. Report deployment/SMS/payment provider as separate capabilities. A passing local demo does not imply a live business launch.

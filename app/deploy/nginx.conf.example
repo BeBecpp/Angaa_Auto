@@ -1,0 +1,41 @@
+# Example only — adjust server_name, paths, PHP-FPM socket and certificates for the real server.
+server {
+    listen 80;
+    server_name example.mn;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name example.mn;
+
+    ssl_certificate     /etc/letsencrypt/live/example.mn/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.mn/privkey.pem;
+
+    root /srv/angaa-auto/app/public;
+    index index.php;
+    charset utf-8;
+
+    # 5 photos × 8 MB plus form data
+    client_max_body_size 50M;
+
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+        fastcgi_read_timeout 120;
+    }
+
+    # Never serve dotfiles; customer media is outside public/ and only reachable via /media/{id}.
+    location ~ /\.(?!well-known).* { deny all; }
+}

@@ -1,0 +1,97 @@
+PRODUCT SPECIFICATION — ANGAA AUTO
+This document defines v1 behavior. English specification, Mongolian product UI.
+
+A. USERS AND INFORMATION ARCHITECTURE
+Guest: view services, send workshop/callback/callout request, receive a minimal receipt.
+Customer: verified phone sign-in; access records explicitly authorized to their customer identity.
+Owner (Angaa): full business management, finances, team, settings and audit.
+Service advisor: requests, appointments, customers/vehicles, estimates and assigned financial operations; no owner settings or bulk unrestricted exports by default.
+Mechanic: assigned work orders, diagnosis/inspection, photos/checklists and progress; no customer bulk export, financial costs, price editing or payment administration.
+
+Filament navigation, maximum seven groups:
+1 Overview: dashboard, reports.
+2 Schedule: calendar, incoming requests.
+3 Workshop: work orders, inspections/estimates.
+4 Customers: customers, vehicles/history.
+5 Finance: invoices, payments.
+6 Follow-up: maintenance plans, reminders/message outbox.
+7 Settings: services, team, bays, opening hours/holidays, business/brand settings, audit.
+Resources can live inside these groups rather than creating one giant flat sidebar.
+
+B. PUBLIC SITE
+Home: brand + Дархан descriptor, concise promise, primary request CTA, actual contact CTA; services available in this shop; three-step process; explanation of photo history/approval/reminders; owner/team section only with supplied facts; location/hours; FAQ; footer.
+No fake testimonials, vanity numbers, invented affiliations, arbitrary discount countdown or stock supercar hero. Prefer actual workshop images supplied by owner. While absent use an original typography-led layout and labeled illustration/demo panels.
+
+Services: published catalog; duration range/price type; inclusions; exclusions; CTA carries selected service to request form. Staff can unpublish unsupported services.
+Contact: actual address, map link based on configured pin, parking/landmark directions, opening hours and current closure notice. No invented location. Do not load a heavy map SDK just for a directions link.
+FAQ: how a request is confirmed, whether photo means diagnosis (it does not), estimate approval, parts/repair updates, how to see history, and reminders.
+Privacy/terms: draft operational descriptions tied to actual data collection and service process; clearly marked draft in local mode. No claim of legal certification. Public launch requires business owner review and accurate contact/retention choices.
+SEO: server-rendered Mongolian titles/descriptions, canonical URL from configured domain, sitemap/robots, real LocalBusiness/AutoRepair structured data only after actual details exist; portal/admin/auth routes noindex; no real customer data in structured data.
+
+C. REQUEST WIZARD
+Primary conversion: send a useful request without registration.
+Three lightweight steps:
+1. Ямар тусламж хэрэгтэй вэ? Service selection or Би сайн мэдэхгүй; request type workshop/callback/callout; symptoms text; optional photo capture/gallery.
+2. Машин ба холбоо барих: name, Mongolian phone, make/model free text, optional plate/year, preferred day/time window; callout adds address and optional one-time location permission.
+3. Хянах ба илгээх: summary, service-contact consent, separate optional reminder preference, exact explanation that staff confirms availability and price.
+Use accessible progress text, preserve previous fields during validation, prevent duplicate submit with server idempotency key. Phone supports +976/8-digit normalization with current policy configurable; no assumptions that every valid phone can receive SMS. Plate supports Mongolian Cyrillic and nonstandard/foreign plates; normalize case/spaces without destructive Latin→Cyrillic guessing.
+Photo options: Зураг авах (camera hint) and Галерейгаас сонгох (picker). Desktop uses picker fallback. Max 5 images per public request, 8 MiB each, bounded decoded dimensions (16 megapixels). JPEG/PNG/WebP; HEIC only if tested converter exists. Show per-file progress, preview/remove and explicit errors. Photo optional; no silent partial form submission. Retry resends failed uploads without creating another request.
+Callout: availability configured by owner, local area label and fee policy; never a promise that someone has been dispatched. No background/live location tracking. Callback request means asking staff to call, not triggering an automatic phone call.
+Success page: random reference, submitted time, requested type, pending label, configured contact option. Default guest receipt reveals only minimal submitted information, never existing vehicle history. Lost receipt recovery uses verified login, not public phone search.
+Admin notification: new request count/database notification. Email optional; no external SMS needed for local operation.
+
+D. CUSTOMER PORTAL
+Phone challenge: expiry, attempt cap, resend cooldown, per-phone/IP rate limiting, hashed challenge secret, constant/generic error messages. Production OTP through an enabled real provider; local simulation gated to APP_ENV local/testing and current challenge/session. OTPs excluded from production logs. Staff accounts use secure passwords and a separate sign-in path; customer challenge cannot grant staff panel access.
+Home: upcoming appointment, current job status, pending estimate approval and next maintenance item. No fabricated live technician location or auto mileage telemetry.
+Vehicles: explicit verified associations; last known km clearly dated, repair histories restricted by order customer identity. New claimed plate does not link to another account. Staff-assisted reconciliation as needed.
+Job detail: immutable customer-facing snapshot at intake; status timeline; findings and approved customer-visible photos; estimate versions; work performed; invoice/payment balance; recommendations and next-service plan; printable summary.
+Estimate: show labor, parts/quantity, discounts/tax if configured, total, diagnosis notes, scope/exclusions, revision/date; approve/decline with explicit confirmation; reject stale approval; optional question callback. Hidden/internal mechanic notes never leak.
+Appointments: request reschedule/cancel with reason; no unilateral resource collision. Staff review until configured business rules support self-service; show pending change distinctly.
+History: filter by own car/date/service; chronological timeline; before/after categories; downloadable summary with authorized access.
+Preferences: current verified phone, service reminders opt-in/out, marketing separately optional/off by default; channel choices based on available providers; export request/contact. Changing phone needs fresh verification.
+
+E. OWNER DASHBOARD
+Primary operational row: new unhandled requests, today's expected arrivals, active repairs, ready for pickup. Every count links to filtered records.
+Today's list: local time, plate/model, customer first name/authorized contact, service, bay/mechanic, state, next action.
+Alerts: approval pending, parts wait, overdue promised completion, failed messages and unpaid balances. Show a clear distinction between generated invoice revenue and collected money.
+Reporting: date filters in Mongolia timezone; funnel, first response, no-show, estimate approval, repeated visits, billed/received/outstanding. Reports obey policies; exports audited and CSV formula-safe.
+
+F. REQUEST TRIAGE AND CALENDAR
+Inbox: filters new/contacted/converted/closed/spam; staff notes; call/contact action (tel only when actual number); safe photo previews; preferred vs confirmed time; owner assign; convert to appointment/work order exactly once.
+FullCalendar: month/week/day plus list. Desktop default week, mobile default agenda/list. Monday start, Mongolian labels and Asia/Ulaanbaatar regardless viewer device timezone. Calendar event displays time, plate/model, service, mechanic/bay, status. Public availability exposes capacity only, never personal event data.
+Day/week views use standard non-premium calendar with bay/mechanic filters. Drag/drop and resize ask for confirmation and run server validation; revert on denial/collision. Keyboard modal rescheduling equivalent is mandatory.
+Appointment editor: duration, bay, mechanic, service, buffers, staff notes, request link, status, notification choice. Enforce required bay/mechanic before confirmation. Walk-ins supported through same resource reservation. Roadside/callout can reserve mechanic only with explicit travel time; workshop reserves a bay too.
+Owner can set actual opening hours, lunch/closure periods, holidays, mechanic leave and resource maintenance. Default demo hours are visibly DEMO, not real shop hours. If capacity is unknown in production, public user can request a time window but no availability claim.
+Status: requested (unreserved) → confirmed → arrived → fulfilled; requested/confirmed → cancelled; confirmed → no_show. A separate work order records actual repair progress. Calendar does not delete past events when cancelled.
+Overrunning work: show planned vs actual occupancy; mark affected later reservations and resolve by reschedule/assignment workflow. Do not silently keep the bay free while a vehicle is actively occupying it. Waiting parts may release a bay explicitly and require a new reservation when work resumes.
+
+G. WORK ORDER AND INSPECTION
+Intake: customer, vehicle, complaint, known mileage/time, fuel optional, belongings note, existing visible damage/photos, intake staff/time, reservation link if any. Walk-in creation supported. Assign unique human-readable work order number without max(id)+1 races.
+Inspection: editable template items (e.g. visual/fluids/brakes as owner config, not authoritative repair schedule); pass/attention/urgent/not_checked labels plus text/icons; note/photo linkage. Draft findings separate from customer-visible publication.
+Order progression:
+received → diagnosing → awaiting_approval → approved → in_progress → quality_check → ready_for_pickup → delivered.
+waiting_parts is a controlled suspension with previous stage; cancelled and reopened/rework paths require reason/audit. No numeric status ordering that allows arbitrary transitions.
+Mechanic can diagnose, document and submit QC. Only authorized staff publish estimates, approve owner overrides and deliver vehicle. Actual completion QC may be performed by permitted staff; record who checked. Record customer declined recommendations separately.
+Estimates: multiple immutable revisions; parts/labor lines; quantities with controlled precision; integer line totals; parts alternatives/exclusions; validity deadline; customer approval evidence; phone approval actor/time/method; new revision after additional findings. Pending newest revision clearly replaces earlier pending version; previously approved version remains historical.
+Repair log: performed service, parts used, actual costs (owner/finance visibility), notes, before/during/after photos, actor/time, completion checklist, recorded warranty terms if any. Include actual odometer reading when recorded; unexplained decreases require an authorized correction with audit.
+QC/delivery: checklist, outstanding issues explained, customer summary, next due service, balance display, actual pickup timestamp. Delivered with unpaid balance requires owner/authorized credit override reason; payment status remains truthful. After delivery amendments are separate audited records; original evidence cannot silently change.
+
+H. INVOICES AND PAYMENTS
+One or more issued document versions referencing an approved scope; server totals in MNT. Labor/parts separately shown. Cash/bank/card_external/manual types record what happened; a manual payment entry does not claim gateway settlement. Record partial payments, payment references and audited reversal entries; do not delete settled payment records.
+Invoice states draft/issued/void; balance derived from issued total and settled net payment allocations. Present unpaid/part_paid/paid separately; refunds create controlled reversal/credit records and never make revenue appear twice.
+Printable customer invoice and repair summary use the same brand and legible Mongolian. Browser print-to-PDF is sufficient v1; if server PDF is implemented ensure Cyrillic font embedding and private access.
+QPay, ebarimt and full accounting/inventory are excluded from the initial provider work; no dummy success endpoints. Keep documented boundaries for future integration.
+
+I. NEXT SERVICE AND REMINDERS
+Each performed service may create an independent maintenance plan: due_date, due_odometer_km, whichever comes first; source/recommendation note; creator; owner/customer; active/satisfied/paused status. Do not set every car to 5,000 km or six months by default. Mechanic/owner chooses according to actual service/vehicle guidance.
+Mileage reminders trigger only from a dated verified/recorded reading. Optional monthly mileage request is separately opted in. If latest reading predates the plan or is too old, show unknown mileage, not falsely overdue. Calendar due date still works independently.
+Appointment defaults: one reminder at 24h before and one at 2h before if still useful and permitted by quiet hours. Newly confirmed appointments do not receive already-expired reminder stages. Service default: seven days before due date, due date, one overdue follow-up at seven days; configurable, with caps and opt-out. Avoid repeat pressure on declined/deferred recommendations.
+Reminder screen: scheduled/queued/simulated/provider_accepted/delivered/failed/unknown/skipped, recipients masked as appropriate, consent reason, attempts, retry/reconciliation actions and safe provider IDs.
+Local demo shows «Туршилтын сануулга — бодитоор илгээгээгүй». Staff can mark a manual phone call completed separately; it is not an SMS delivery record.
+SMS template example: «АНГАА АВТО: Таны үйлчилгээний цаг {date} {time}. Өөрчлөх бол {contact}.» Plate/details optional and minimal; no permanent private bearer URL by default. Production text length and Cyrillic segmentation must be provider-tested.
+
+J. COMPONENT AND RESPONSIVE RULES
+Shared components: BrandWordmark, PublicHeader, StickyMobileActions, ServiceCard, PriceLabel, RequestStepper, CameraUpload, PlateBadge, StatusBadge, MoneyAmount, Timeline, EstimateRevision, ApprovalDialog, AppointmentCard, ReminderPreference, EmptyState, ConfirmAction, PrintHeader.
+Every interactive component defines default/hover/focus/loading/disabled/error/success states. Form label is never placeholder-only. Error text next to field plus top summary; keyboard focus moves to first error; upload progress announced; status is text plus icon, not color alone.
+Desktop >=1280: max-width 1200 public layout; two-column hero and request summary; admin comfortable data density. Tablet 768–1279: two/one-column fallback with usable sidebar drawer. Mobile 360–767: single column, 44px minimum targets (mechanic primary controls 48px), 16px input font, safe-area bottom CTA, no required horizontal page scrolling. Tables collapse into useful cards; calendar switches to list. Test at 360, 390, 768 and 1440 widths, 200% zoom and reduced motion.
+Public animations limited to small transitions; honor reduced-motion. Photos lazy-load with dimensions. No photo-heavy hero that hides the request CTA on slow mobile networks. Skeletons only when actual loading occurs; empty states offer the next permitted action.

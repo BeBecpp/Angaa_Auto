@@ -1,0 +1,17 @@
+# Example systemd unit — /etc/systemd/system/angaa-queue.service
+# systemctl daemon-reload && systemctl enable --now angaa-queue
+# Restart after each release: php artisan queue:restart (the unit restarts the worker automatically).
+[Unit]
+Description=АНГАА АВТО queue worker
+After=network.target mysql.service
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/angaa-auto/app
+ExecStart=/usr/bin/php artisan queue:work --tries=3 --max-time=3600 --sleep=3
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
