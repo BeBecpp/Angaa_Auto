@@ -23,6 +23,9 @@ return [
 
     'timezone' => env('BUSINESS_TIMEZONE', 'Asia/Ulaanbaatar'),
 
+    // Reverse proxy IPs (comma separated) or "*" when HTTPS terminates in front of PHP.
+    'trusted_proxies' => env('TRUSTED_PROXIES'),
+
     'phone' => [
         'country_code' => '976',
         'local_pattern' => '/^[0-9]{8}$/',

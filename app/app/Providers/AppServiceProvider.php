@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\DevCommands;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +36,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale('mn');
         CarbonImmutable::setLocale('mn');
+
+        $proxies = config('angaa.trusted_proxies');
+
+        if (filled($proxies)) {
+            TrustProxies::at($proxies === '*' ? '*' : array_map('trim', explode(',', (string) $proxies)));
+        }
 
         // `composer dev` / `php artisan dev`: add the scheduler next to server, queue and Vite (reminders need it).
         if ($this->app->runningInConsole()) {
