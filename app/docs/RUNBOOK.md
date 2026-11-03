@@ -38,7 +38,13 @@ BACKUP_DESTINATION=<description of encrypted off-server location>
 `SMS_DRIVER=log` is a local simulation and reports FAIL in production readiness. With SMS disabled, customer OTP sign-in
 shows an honest "unavailable" message; staff-only mode keeps working. There is no fallback universal OTP.
 
-## 3. Deploy steps (per release)
+## 3. Deploy steps
+
+First install: `bash app/deploy/install.sh` (creates `.env` from `.env.production.example` on the first run and stops;
+run again after editing `APP_URL`/`DB_*`). Updates: `git pull && bash app/deploy/update.sh`.
+Verified 2026-11-03 on a fresh clone in production mode (SQLite variant): install completed, config/route/view caches built,
+public pages 200, guests redirected to the correct sign-in, owner bootstrap worked, Filament assets served.
+The steps the scripts run, for reference:
 
 ```bash
 cd /srv/angaa-auto/app

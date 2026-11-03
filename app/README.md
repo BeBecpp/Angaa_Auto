@@ -10,7 +10,22 @@ Local: SQLite + database queue + private disk + SMS **log** driver (simulation o
 > Энэ бол local demo. SMS бодитоор илгээгдэхгүй, төлбөрийн систем холбогдоогүй, сервер рүү deploy хийгдээгүй.
 > Бодит утас/хаяг/цаг/үнэ оруулаагүй — DEMO гэж тэмдэглэсэн. `php artisan app:readiness` нь юу дутуу байгааг харуулна.
 
-## 1. Нэг удаагийн тохиргоо
+## 0. Сервер дээр суулгах (production, Linux)
+
+```bash
+git clone <repo-url> angaa-auto && cd angaa-auto
+bash app/deploy/install.sh        # 1-р удаа: app/.env үүсгээд зогсоно → APP_URL, DB_* засна
+nano app/.env
+bash app/deploy/install.sh        # 2-р удаа: composer/npm, APP_KEY, migrate, build, cache
+cd app && php artisan app:owner-create
+```
+
+Дараа нь: web root → `app/public` (`deploy/nginx.conf.example`), queue worker (`deploy/angaa-queue.service`),
+cron (`deploy/angaa-crontab.example`), `/admin` дээр бодит мэдээлэл, `php artisan app:readiness`.
+Шинэчлэх: `git pull && bash app/deploy/update.sh`. Дэлгэрэнгүй: `docs/RUNBOOK.md`.
+Repo-д өгөгдлийн сан, `.env`, зураг, DEMO өгөгдөл ороогүй — сервер цэвэр эхэлнэ (DEMO seed production-д ажиллахгүй).
+
+## 1. Local тохиргоо (хөгжүүлэлт / DEMO)
 
 Шаардлага: PHP 8.4 (ext: pdo_sqlite, sqlite3, mbstring, intl, gd, exif, fileinfo, zip, openssl, curl), Composer 2, Node 20+/npm.
 
@@ -84,7 +99,7 @@ Local порталд нэвтрэх: DEMO утас (жишээ `0000 0004`) ор
 php artisan test
 ```
 
-80 тест / 424 assertion (2026-11-03-нд бүгд амжилттай). Үүнд хоёр тусдаа OS процесс нэг хоосон цагийг зэрэг баталгаажуулахад
+81 тест / 433 assertion (2026-11-03-нд бүгд амжилттай). Үүнд хоёр тусдаа OS процесс нэг хоосон цагийг зэрэг баталгаажуулахад
 нэг нь л амжилттай болох тест (SQLite). MySQL 8.4 дээр давтах заавар: `docs/RUNBOOK.md` §6.
 
 ## 5. Баримтууд

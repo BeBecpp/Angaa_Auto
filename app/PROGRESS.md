@@ -33,7 +33,7 @@ Last updated: 2026-11-03 (Asia/Ulaanbaatar). Spec: `../handoff/docs/01–09`. Br
 
 ## Test evidence (2026-11-03)
 
-`php artisan test` → **80 passed, 424 assertions** (SQLite in-memory + file-based concurrency test), ~43 s.
+`php artisan test` → **81 passed, 433 assertions** (SQLite in-memory + file-based concurrency test), ~43 s.
 `vendor/bin/pint` clean. `npm run build` OK.
 `php artisan schedule:run` + `php artisan queue:work --once` → scheduler and queue heartbeats recorded.
 `php artisan reminders:dispatch --dry-run` → lists due stages without writing; real run marks messages **simulated** only.
@@ -45,6 +45,16 @@ customer OTP sign-in via the local viewer, pending estimate on phone width and a
 Defects found this way and fixed: unstyled demo banner in Filament, Title-Cased Mongolian nav labels, English FullCalendar
 headers (no `mn` Intl data → explicit formatters), duplicated vehicle snapshot text, 584px-wide job page on phones
 (estimate table → stacked list on small screens).
+
+### Production install dry run (2026-11-03)
+
+Fresh `git clone` → `bash app/deploy/install.sh` twice (APP_ENV=production, APP_DEBUG=false, SQLite variant, SMS disabled):
+composer `--no-dev`, `npm ci && npm run build`, APP_KEY, migrations, brand derivatives, `optimize` (config/route/view caches),
+`filament:optimize` all succeeded. Public pages 200, no DEMO banner, robots allows the public site only, portal sign-in shows
+"unavailable" (no SMS). Found and fixed: signed-out visits to `/mechanic`, `/media/*`, print pages returned 500 (no `login`
+route) → now redirect to the staff or portal sign-in (`bootstrap/app.php`, covered by AdminPagesTest).
+`app:owner-create` worked; `app:readiness` FAILs only for server/business inputs (business details, hours, cron, worker, SMS, backup).
+Repository holds no database, `.env`, uploads or demo data; the local database was reset to an empty schema.
 
 ## Traceability (spec → code → test)
 

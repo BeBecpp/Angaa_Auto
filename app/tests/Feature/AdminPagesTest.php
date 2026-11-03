@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Appointment;
 use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\MediaFile;
 use App\Models\ServiceRequest;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -59,6 +60,17 @@ class AdminPagesTest extends TestCase
             $response = $this->get($url);
             $this->assertSame(200, $response->status(), "GET {$url} returned {$response->status()}: ".($response->exception?->getMessage() ?? '').' @ '.($response->exception ? $response->exception->getFile().':'.$response->exception->getLine() : ''));
         }
+    }
+
+    public function test_guests_are_redirected_to_the_right_sign_in_page(): void
+    {
+        $order = WorkOrder::query()->firstOrFail();
+
+        $this->get('/mechanic')->assertRedirect(route('filament.admin.auth.login'));
+        $this->get('/staff-print/work-orders/'.$order->public_id)->assertRedirect(route('filament.admin.auth.login'));
+        $this->get('/media/'.MediaFile::query()->firstOrFail()->public_id.'/thumb')->assertRedirect(route('filament.admin.auth.login'));
+        $this->get('/portal')->assertRedirect(route('portal.login'));
+        $this->get('/admin')->assertRedirect();
     }
 
     public function test_customers_cannot_enter_the_staff_panel_or_mechanic_screens(): void
